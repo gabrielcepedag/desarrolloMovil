@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">basica</string>
+    <string-array name="generos_array">
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Otro</item>
+    </string-array>
+</resources>
