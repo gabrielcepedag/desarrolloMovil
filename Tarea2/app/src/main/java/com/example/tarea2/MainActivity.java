@@ -1,11 +1,10 @@
 package com.example.tarea2;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -32,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(arrayAdapter);
 
         editText = findViewById(R.id.editTextTareas);
+
+        setupListViewListener();
     }
 
     public void addTodoToList(View view){
@@ -39,5 +40,36 @@ public class MainActivity extends AppCompatActivity {
         lista.add(editText.getText().toString());
         arrayAdapter.notifyDataSetChanged();
         editText.setText("");
+    }
+
+//     Attaches a long click listener to the listview
+    private void setupListViewListener() {
+        listView.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapter,
+                                                   View item, int pos, long id) {
+                        AlertDialog.Builder modal = new AlertDialog.Builder(MainActivity.this);
+                        modal.setTitle("Confirmación");
+                        modal.setMessage("Estás seguro de que deseas eliminar esta tarea?");
+                        modal.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                lista.remove(pos);
+                                arrayAdapter.notifyDataSetChanged();
+                                dialog.dismiss();
+                            }
+                        });
+                        modal.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        modal.show();
+                        return true;
+                    }
+
+                });
     }
 }
