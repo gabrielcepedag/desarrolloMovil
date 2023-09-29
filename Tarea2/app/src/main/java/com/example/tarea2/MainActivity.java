@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         lista = new ArrayList<>();
-        lista.add("Hola mundo");
         arrayAdapter = new ArrayAdapter<>(this, R.layout.todolist_view_layout, lista);
         listView = findViewById(R.id.todo_list_view);
 
