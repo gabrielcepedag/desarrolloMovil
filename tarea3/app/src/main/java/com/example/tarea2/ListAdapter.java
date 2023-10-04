@@ -27,7 +27,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.todolist_recyclerview_layout, parent, false);
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.todolist_recyclerview_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -75,8 +76,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public Button btnEliminar;
         public ViewHolder(View itemView) {
             super(itemView);
-            btnEliminar = itemView.findViewById(R.id.btnEliminarTarea);
-            textViewTarea = itemView.findViewById(R.id.textViewTarea);
+            btnEliminar = itemView.findViewById(R.id.btnDelete);
+            textViewTarea = itemView.findViewById(R.id.text);
         }
     }
 }

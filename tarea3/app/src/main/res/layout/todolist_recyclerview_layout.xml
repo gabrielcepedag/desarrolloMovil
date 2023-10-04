@@ -20,9 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:backgroundTint="@color/design_default_color_error"
-        android:text="Eliminar"
-        android:textColor="#F8F7F7"
+        android:layout_marginRight="3dp"
+        android:drawableBottom="@drawable/baseline_delete_24"
         app:rippleColor="@color/black" />
 
     <View
