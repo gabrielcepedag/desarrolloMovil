@@ -2,6 +2,7 @@ package com.example.tarea2;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,16 +35,36 @@ public class RecyclerViewActivity extends AppCompatActivity {
         listAdapter = new ListAdapter(lista, this);
         recyclerView.setAdapter(listAdapter);
 
-        editTextTareas = findViewById(R.id.editTextTareas2);
+//        editTextTareas = findViewById(R.id.editTextTareas2);
     }
 
     public void addTodoList(View v){
-        Tarea tarea = new Tarea(editTextTareas.getText().toString());
-        if (!tarea.getDescripcion().isEmpty()){
-            lista.add(tarea);
-            listAdapter.notifyDataSetChanged();
-            editTextTareas.setText("");
-        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Agregar Tarea");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String descripcionTarea = input.getText().toString().trim();
+                if (!descripcionTarea.isEmpty()) {
+                    lista.add(new Tarea(descripcionTarea));
+                    listAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
 

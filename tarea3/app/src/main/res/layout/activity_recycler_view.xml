@@ -25,21 +25,21 @@
       android:layout_alignParentBottom="true"
       android:padding="10dp">
 
-    <EditText
-        android:id="@+id/editTextTareas2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_weight="1"
-        android:hint="Descripción de la tarea"/>
+<!--    <EditText-->
+<!--        android:id="@+id/editTextTareas2"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        android:layout_weight="1"-->
+<!--        android:hint="Descripción de la tarea"/>-->
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="addTodoList"
         android:layout_gravity="center_vertical"
-        android:text="Agregar" />
+        android:text="Agregar Tarea" />
   </LinearLayout>
 
   <LinearLayout
