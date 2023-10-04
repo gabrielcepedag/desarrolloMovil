@@ -18,7 +18,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ListAdapter listAdapter;
     private EditText editTextTareas;
-    private List<String> lista;
+    private List<Tarea> lista;
 
 
     @Override
@@ -38,9 +38,12 @@ public class RecyclerViewActivity extends AppCompatActivity {
     }
 
     public void addTodoList(View v){
-        lista.add(editTextTareas.getText().toString());
-        listAdapter.notifyDataSetChanged();
-        editTextTareas.setText("");
+        Tarea tarea = new Tarea(editTextTareas.getText().toString());
+        if (!tarea.getDescripcion().isEmpty()){
+            lista.add(tarea);
+            listAdapter.notifyDataSetChanged();
+            editTextTareas.setText("");
+        }
     }
 
 

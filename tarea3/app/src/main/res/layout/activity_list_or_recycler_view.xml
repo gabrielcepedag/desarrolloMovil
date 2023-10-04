@@ -7,17 +7,9 @@
     android:gravity="center">
 
     <Button
-        android:id="@+id/listViewButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ListView"
-        android:layout_marginBottom="30dp"
-        />
-
-    <Button
         android:id="@+id/recyclerViewButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RecyclerView" />
+        android:text="ViewModel" />
 
     </LinearLayout>

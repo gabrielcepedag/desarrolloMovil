@@ -13,17 +13,17 @@ public class ListOrRecyclerView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_or_recycler_view);
 
-        Button listViewButton = findViewById(R.id.listViewButton);
+//        Button listViewButton = findViewById(R.id.listViewButton);
         Button recyclerViewButton = findViewById(R.id.recyclerViewButton);
 
-        listViewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Inicia MainActivity con ListView
-                Intent intent = new Intent(ListOrRecyclerView.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+//        listViewButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Inicia MainActivity con ListView
+//                Intent intent = new Intent(ListOrRecyclerView.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         recyclerViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
