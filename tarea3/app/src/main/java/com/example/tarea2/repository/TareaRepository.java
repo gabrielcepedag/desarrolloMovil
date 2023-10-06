@@ -31,4 +31,17 @@ public class TareaRepository {
             mTareaDao.insert(tarea);
         });
     }
+
+    public void remove(Tarea tarea) {
+        TareaRoomDB.databaseWriteExecutor.execute(() ->{
+            mTareaDao.delete(tarea);
+        });
+    }
+
+    public void completar(Tarea tarea) {
+        tarea.setHecha(!tarea.isHecha());
+        TareaRoomDB.databaseWriteExecutor.execute(() -> {
+            mTareaDao.update(tarea);
+        });
+    }
 }

@@ -27,18 +27,11 @@ public class TareasViewModel extends AndroidViewModel {
         tareaRepository.insert(tarea);
     }
 
-//    public void setTareas(LiveData<List<Tarea>> tareas) {
-//        Log.w("klk", "que mmg");
-////        this.tareas = tareas;
-//
-//    }
+    public void eliminarTarea(Tarea tarea) {
+        tareaRepository.remove(tarea);
+    }
 
-//    public void addTarea(String tarea){
-//        Tarea tarea1 = new Tarea(tarea);
-//        tareas.getValue().add(tarea1);
-//    }
-
-//    public void completar(Tarea tarea){
-//        tarea.setHecha(true);
-//    }
+    public void completarTarea(Tarea tarea) {
+        tareaRepository.completar(tarea);
+    }
 }

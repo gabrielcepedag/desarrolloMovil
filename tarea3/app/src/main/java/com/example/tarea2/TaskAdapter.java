@@ -13,11 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.tarea2.Constantes.Accion;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 
 public class TaskAdapter extends ListAdapter<Tarea, TaskAdapter.TaskViewHolder> {
 
+    private BiConsumer<Tarea, Accion> tareaConsumer;
 
     protected TaskAdapter(@NonNull @NotNull DiffUtil.ItemCallback<Tarea> diffCallback) {
         super(diffCallback);
@@ -35,48 +40,26 @@ public class TaskAdapter extends ListAdapter<Tarea, TaskAdapter.TaskViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull @NotNull TaskViewHolder holder, int position) {
         Tarea current = getItem(position);
-//        holder.textViewTarea.setText(current.getDescripcion());
-//        holder.radioButton.setChecked(current.isHecha());
         holder.bind(current);
 
         holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext()); //Gabriel: Esto no esta bien
-                builder.setTitle("Confirmación de eliminación");
-                builder.setMessage("¿Estás seguro de que deseas eliminar esta tarea?");
-
-                builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-//                        lista.remove(position); aqui gabriel
-                        notifyItemRemoved(position);
-                        dialog.dismiss();
-                    }
-                });
-
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                if (tareaConsumer != null){
+                    tareaConsumer.accept(current, Accion.ELIMINAR);
+                }
             }
         });
+
+        holder.radioButton.setChecked(current.isHecha());
+        holder.textViewTarea.setEnabled(!current.isHecha());
 
         holder.radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.w("NOT IMPLEMENTED", "SET ON CLICK LISTENER IN TASKADAPTER");
-//                Tarea tarea1 = lista.get(position);
-//                tarea1.setHecha(!tarea1.isHecha());
-//
-//                holder.textViewTarea.setEnabled(!tarea1.isHecha());
-//
-//                notifyDataSetChanged();
+                if (tareaConsumer != null){
+                    tareaConsumer.accept(current, Accion.COMPLETAR);
+                }
             }
         });
 
@@ -117,5 +100,9 @@ public class TaskAdapter extends ListAdapter<Tarea, TaskAdapter.TaskViewHolder> 
             return new TaskViewHolder(view);
         }
 
+    }
+
+    public void setTareaConsumer(BiConsumer<Tarea, Accion> tareaConsumer) {
+        this.tareaConsumer = tareaConsumer;
     }
 }

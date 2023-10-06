@@ -11,17 +11,16 @@ import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.tarea2.Constantes.Accion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class RecyclerViewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TareasViewModel tareasViewModel;
-    private TaskAdapter taskAdapter;
-    private EditText editTextTareas;
-    private List<Tarea> lista;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +40,39 @@ public class RecyclerViewActivity extends AppCompatActivity {
             taskAdapter.submitList(tareas);
         });
 
-//        List<Tarea> tareis = new ArrayList<>();
-//        tareis.add(new Tarea("Limpiar las sabanas"));
-//        taskAdapter.submitList(tareis);
+        taskAdapter.setTareaConsumer(new BiConsumer<Tarea, Accion>() {
+            @Override
+            public void accept(Tarea tarea, Accion accion) {
+                if (accion == Accion.ELIMINAR){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RecyclerViewActivity.this);
+                    builder.setTitle("Confirmación de eliminación");
+                    builder.setMessage("¿Estás seguro de que deseas eliminar esta tarea?");
 
-//        recyclerView = findViewById(R.id.recyclerView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//
-//        lista = new ArrayList<>();
-//        this.taskAdapter = new TaskAdapter(lista, this);
-//        recyclerView.setAdapter(this.taskAdapter);
+                    builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            tareasViewModel.eliminarTarea(tarea);
+                            dialog.dismiss();
+                        }
+                    });
 
-//        editTextTareas = findViewById(R.id.editTextTareas2);
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                else if (accion == Accion.COMPLETAR){
+                    tareasViewModel.completarTarea(tarea);
+                }
+
+            }
+        });
+
     }
 
     public void addTodoList(View v){
@@ -69,8 +89,9 @@ public class RecyclerViewActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String descripcionTarea = input.getText().toString().trim();
                 if (!descripcionTarea.isEmpty()) {
-                    lista.add(new Tarea(descripcionTarea));
-                    taskAdapter.notifyDataSetChanged();
+                    Tarea tarea = new Tarea(descripcionTarea);
+                    tareasViewModel.insert(tarea);
+                    dialog.dismiss();
                 }
             }
         });
