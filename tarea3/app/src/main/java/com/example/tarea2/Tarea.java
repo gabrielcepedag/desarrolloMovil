@@ -1,6 +1,14 @@
 package com.example.tarea2;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "tarea_table")
 public class Tarea {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    @NonNull
     private String descripcion;
     private boolean hecha;
 
@@ -8,7 +16,7 @@ public class Tarea {
         this.descripcion = descripcion;
         this.hecha = false;
     }
-
+    @NonNull
     public String getDescripcion() {
         return descripcion;
     }
@@ -23,5 +31,12 @@ public class Tarea {
 
     public void setHecha(boolean hecha) {
         this.hecha = hecha;
+    }
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

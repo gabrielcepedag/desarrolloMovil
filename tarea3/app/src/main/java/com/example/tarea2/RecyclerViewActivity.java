@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class RecyclerViewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private TareasViewModel tareasViewModel;
     private TaskAdapter taskAdapter;
     private EditText editTextTareas;
     private List<Tarea> lista;
@@ -31,13 +33,17 @@ public class RecyclerViewActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         TaskAdapter taskAdapter =  new TaskAdapter(new TaskAdapter.TaskDiff());
         recyclerView.setAdapter(taskAdapter);
 
-        List<Tarea> tareis = new ArrayList<>();
-        tareis.add(new Tarea("Limpiar las sabanas"));
-        taskAdapter.submitList(tareis);
+        tareasViewModel = new ViewModelProvider(this).get(TareasViewModel.class);
+        tareasViewModel.getTareas().observe(this, tareas -> {
+            taskAdapter.submitList(tareas);
+        });
+
+//        List<Tarea> tareis = new ArrayList<>();
+//        tareis.add(new Tarea("Limpiar las sabanas"));
+//        taskAdapter.submitList(tareis);
 
 //        recyclerView = findViewById(R.id.recyclerView);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
