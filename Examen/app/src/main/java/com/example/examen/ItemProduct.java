@@ -1,9 +1,14 @@
 package com.example.examen;
 
+import android.content.Intent;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.bumptech.glide.Glide;
+import com.example.examen.dto.Producto;
 
-public class item_product extends AppCompatActivity {
+public class ItemProduct extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

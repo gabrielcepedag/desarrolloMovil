@@ -1,19 +1,15 @@
 package com.example.examen;
 
-import android.util.Log;
+import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.examen.adapter.ProductoAdapter;
-import com.example.examen.api.APIClient;
-import com.example.examen.api.ApiProducto;
 import com.example.examen.data.ProductoViewModel;
 import com.example.examen.dto.Producto;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,7 +37,12 @@ public class MainActivity extends AppCompatActivity {
         productoAdapter.setProductoConsumer(new Consumer<Producto>() {
             @Override
             public void accept(Producto producto) {
-                Log.w("AHORRA CHI", "AHORRA CHI");
+                Intent intent = new Intent(MainActivity.this, ItemProductActivity.class);
+                intent.putExtra("id", producto.getId());
+                intent.putExtra("titulo", producto.getTitle());
+                intent.putExtra("descripcion", producto.getDescription());
+                intent.putExtra("imagen", producto.getImages().get(0));
+                startActivity(intent);
             }
         });
 

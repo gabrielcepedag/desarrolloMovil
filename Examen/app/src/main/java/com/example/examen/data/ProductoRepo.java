@@ -16,9 +16,10 @@ import java.util.List;
 
 public class ProductoRepo {
     private MutableLiveData<List<Producto>> productosLiveData = new MutableLiveData<>();
+    private final ApiProducto apiProducto;
 
     ProductoRepo(Application application){
-        ApiProducto apiProducto = APIClient.getClient().create(ApiProducto.class);
+        apiProducto = APIClient.getClient().create(ApiProducto.class);
 
         apiProducto.findAll().enqueue(new Callback<ProductoList>() {
             @Override
@@ -44,5 +45,9 @@ public class ProductoRepo {
 
     public MutableLiveData<List<Producto>> getAllProductos() {
         return productosLiveData;
+    }
+
+    public Producto getOne(int id) {
+        return (Producto) apiProducto.find(id); //GABRIEL AQUI
     }
 }
