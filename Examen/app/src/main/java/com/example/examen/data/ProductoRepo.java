@@ -50,4 +50,28 @@ public class ProductoRepo {
     public Producto getOne(int id) {
         return (Producto) apiProducto.find(id); //GABRIEL AQUI
     }
+
+    public void getproductosByTitulo(String titulo){
+        ApiProducto apiProducto = APIClient.getClient().create(ApiProducto.class);
+
+        Call<ProductoList> call = apiProducto.findByTitle(titulo);
+
+        call.enqueue(new Callback<ProductoList>() {
+            @Override
+            public void onResponse(Call<ProductoList> call, Response<ProductoList> response) {
+                if (response.isSuccessful()) {
+                    ProductoList productoList = response.body();
+                    if (productoList != null) {
+                        List<Producto> productos = productoList.getProducts();
+                        productosLiveData.setValue(productos);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductoList> call, Throwable t) {
+                Log.e("Error", t.getMessage());
+            }
+        });
+    }
 }

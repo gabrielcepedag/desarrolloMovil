@@ -2,7 +2,6 @@ package com.example.examen.data;
 
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.examen.dto.Producto;
 import org.jetbrains.annotations.NotNull;
@@ -19,11 +18,15 @@ public class ProductoViewModel extends AndroidViewModel {
         mAllProductos = mProductoRepo.getAllProductos();
     }
 
-    public LiveData<List<Producto>> getAllProductos() {
+    public MutableLiveData<List<Producto>> getAllProductos() {
         return mAllProductos;
     }
 
     public Producto getOneProducto(int id){
         return mProductoRepo.getOne(id);
+    }
+
+    public void getAllByFilter(String titulo){
+        mProductoRepo.getproductosByTitulo(titulo);
     }
 }
